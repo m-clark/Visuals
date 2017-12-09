@@ -28,21 +28,6 @@ g = ggplot(aes(x=x,y=y, frame=x),  data=df[1:100,]) +
 gganimate(g)
 
 
-# library(ggplot2)
-# library(magick)
-# img <- image_graph(res = 96)
-# datalist <- split(gapminder, gapminder$year)
-# out <- lapply(datalist, function(data){
-#   p <- ggplot(data, aes(gdpPercap, lifeExp, size = pop, color = continent)) +
-#     scale_size("population", limits = range(gapminder$pop)) +
-#     scale_x_log10(limits = range(gapminder$gdpPercap)) +
-#     geom_point() + ylim(20, 90) + ggtitle(data$year) + theme_classic()
-#   print(p)
-# })
-# dev.off()
-# animation <- image_animate(img, fps = 2)
-# image_write(animation, "animation.gif")
-
 
 library(ggplot2)
 library(magick)
@@ -66,8 +51,7 @@ g = ggplot(aes(x=x,y=y, frame=x),  data=df0) +
 
 # also do one of just dlist10
 
-system.time({
-img <- image_graph(res = 96)
+img = image_graph(res = 96)
 for (i in 1:length(dlist)){
   g = g + 
     # ggplot(aes(x=x,y=y),  data=dlist[[i]]) +
@@ -77,8 +61,8 @@ for (i in 1:length(dlist)){
 dev.off()
 
 animation <- image_animate(img, fps = 5)
-image_write(animation, "diffuser_right.gif")
-})
+image_write(animation, "diffuser.gif")
+
 
 
 dlist = split(df0, df0$splitter)
@@ -87,11 +71,10 @@ glr = ggplot(aes(x=x,y=y, frame=x),  data=df0) +
   ylim(c(min(df0$y), max(df0$y))) +
   theme_void()
 grl = ggplot(aes(x=x,y=y, frame=x),  data=df0) +  # nice
-  xlim(c(min(df0$x), max(df0$x))) +  
+  xlim(c(max(df0$x),min(df0$x))) +   
   ylim(c(min(df0$y), max(df0$y))) +
-  scale_x_reverse() +
+  # scale_x_reverse() +   # don't use you'll lose the fixed min/max
   theme_void()
-
 gbt = ggplot(aes(x=x,y=y, frame=x),  data=df0) +
   xlim(c(min(df0$x), max(df0$x))) +  
   ylim(c(min(df0$y), max(df0$y))) +
@@ -99,37 +82,52 @@ gbt = ggplot(aes(x=x,y=y, frame=x),  data=df0) +
   theme_void()
 gtb = ggplot(aes(x=x,y=y, frame=x),  data=df0) +
   xlim(c(min(df0$x), max(df0$x))) +  
-  ylim(c(min(df0$y), max(df0$y))) +
-  scale_y_reverse() +
+  ylim(c(max(df0$y), min(df0$y))) +
+  # scale_y_reverse() +
   theme_void()
 
-img <- image_graph(res = 96)
-for (i in 1:length(dlist)){
-  g = grl + 
-    # ggplot(aes(x=x,y=y),  data=dlist[[i]]) +
-    geom_point(aes(color=I(bow_seq), alpha=I(alpha_seq)),  data=dlist[[i]], show.legend=F)
-  print(g)
-}
-dev.off()
-
-animation <- image_animate(img, fps = 5)
-image_write(animation, "diffuser_left.gif")
 
 
-
-
-diffuser = function(datalist, gbase, bow_seq, alpha_seq, fname='diffuser.gif') {
+diffuser = function(datalist, gbase, bow_seq, alpha_seq, fps=5, fname=NULL) {
     img = image_graph(res = 96)
-    for (i in 1:length(dlist)){
-      g = g + 
-        # ggplot(aes(x=x,y=y),  data=dlist[[i]]) +
-        geom_point(aes(color=I(bow_seq), alpha=I(alpha_seq)),  data=dlist[[i]], show.legend=F)
-      print(g)
+    for (i in 1:length(datalist)){
+      gbase = gbase + 
+        geom_point(aes(color=I(bow_seq), alpha=I(alpha_seq)),  data=datalist[[i]], show.legend=F)
+      print(gbase)
     }
     dev.off()
     
-    animation <- image_animate(img, fps = 5)
-    image_write(animation, fname)
+    animation <- image_animate(img, fps = fps)
+    if(!is.null(fname)) {
+      image_write(animation, fname)
+    } 
+    invisible(g)
 }
 
-diffuser()
+plr = diffuser(datalist=dlist, gbase=glr, fname='diffuser/diffuser_lr.gif')
+prl = diffuser(datalist=rev(dlist), gbase=grl, fname='diffuser/diffuser_rl.gif')
+
+
+diffuser2p = function(datalist1, datalist2, gbase1, gbase2, bow_seq, alpha_seq, fps=5, fname=NULL) {
+  img = image_graph(res = 96)
+  for (i in 1:length(datalist1)){
+    gbase = gbase1 + 
+      geom_point(aes(color=I(bow_seq), alpha=I(alpha_seq)),  data=datalist1[[i]], show.legend=F)
+    print(gbase1)
+  }
+  for (i in 1:length(datalist2)){
+    gbase2 = gbase2 + 
+      geom_point(aes(color=I(bow_seq), alpha=I(alpha_seq)),  data=datalist2[[i]], show.legend=F)
+    print(gbase2)
+  }
+  dev.off()
+  
+  animation <- image_animate(img, fps = fps)
+  if(!is.null(fname)) {
+    image_write(animation, fname)
+  } 
+  invisible(g)
+}
+
+
+# diffuser pulse start with finished plot and redo
