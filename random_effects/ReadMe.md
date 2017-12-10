@@ -16,8 +16,8 @@ These are some visualizations of some covariance structures for random effects a
 - Non-nested
 ![](model_nonest_contour.png)
 
-- Zoomed
-![](model_nonest_contour_zoom.png)
+  - Zoomed
+![](model_nonnest_contour_zoom.png)
 
 - AR1 (also Toeplitz)
 ![](model_ar_contour.png)
@@ -29,9 +29,9 @@ These are some visualizations of some covariance structures for random effects a
 
 - Squared Exponential Kernel
 
-![](gp_se2.png)
+![](gp_se_2.png)
 
-    - Different settings 
+  - Different settings 
 ![](gp_se_3_heatmap.png)
   
 
@@ -39,10 +39,10 @@ These are some visualizations of some covariance structures for random effects a
 
 ![](gp_rq_1_contour.png)
 
-    - Zoomed in as a heatmap
+  - Zoomed in as a heatmap
 ![](gp_rq_1_heat_zoom.png)
 
-    - Different settings
+  - Different settings
     
 ![](gp_rq_2_heatmap.png)
 
