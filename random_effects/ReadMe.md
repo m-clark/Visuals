@@ -22,7 +22,7 @@ These are some visualizations of some covariance structures for random effects a
 - AR1 (also Toeplitz)
 ![](model_ar_contour.png)
 
-- As a heatmap
+  - As a heatmap
 ![](model_ar_heat.png)
 
 ### Gaussian processes
@@ -32,6 +32,7 @@ These are some visualizations of some covariance structures for random effects a
 ![](gp_se_2.png)
 
   - Different settings 
+  
 ![](gp_se_3_heatmap.png)
   
 
@@ -40,10 +41,11 @@ These are some visualizations of some covariance structures for random effects a
 ![](gp_rq_1_contour.png)
 
   - Zoomed in as a heatmap
+  
 ![](gp_rq_1_heat_zoom.png)
 
   - Different settings
-    
+  
 ![](gp_rq_2_heatmap.png)
 
 - A combination of covariance structures
