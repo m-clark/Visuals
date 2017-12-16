@@ -70,45 +70,58 @@ df = data_frame(y = c(seq(-5, -2, length.out=N),
                        seq(1, 5, length.out=N) + runif(N, min=-.01, max=.01)),
                 g1 = factor(rep(1:3, each=N)),
                 g2 = factor(rep(1:3, each=N)),
-                colvec1 = rep(c('slateblue4','cornflowerblue', 'navy'), each=N),
+                colvec1 = rep(c('darkslateblue','cornflowerblue', 'navy'), each=N),
                 x1 = -1,
                 x2 = 1)
 ggplot(df) +
   geom_point(aes(x=.0, y=y2, color=g1), 
              size=1.5, 
+             shape=sample(1:25, 1),
              position=position_jitter(width=.5, height=.1),
              show.legend=F) +
   geom_point(aes(x=.0, y=y2, color=colvec1), 
              size=1.5, 
+             shape=sample(1:25, 1),
              position=position_jitter(width=.495, height=.095),
              show.legend=F) +
   geom_point(aes(x=0, y=y2), 
              size=2, 
-             color=alpha('#5C010B', .5),
+             shape=sample(1:25, 1),
+             color=alpha('#2C1D22', .5),
              position=position_jitter(width=.5, height=.25),
              show.legend=F,
              data=filter(df, g1==3)) +
   geom_point(aes(x=-.30, y=y2), 
              size=1, 
-             color=alpha('brown4', .05),
+             shape=sample(1:25, 1),
+             color=alpha('#623637', .05),
              position=position_jitter(width=.15, height=.1),
              show.legend=F,
              data=filter(df, g1==3, y2>1.75, y2<4.5)) +
   geom_point(aes(x=.05, y=y2), 
              size=1, 
-             color=alpha('brown4', .05),
+             shape=sample(1:25, 1),
+             color=alpha('#623637', .05),
              position=position_jitter(width=.125, height=.5),
              show.legend=F,
              data=filter(df, g1==3, y2>1.75, y2<4.5)) +
-  geom_point(aes(x=.3, y=y2), 
+  geom_point(aes(x=.4, y=y2), 
              size=1, 
-             color=alpha('brown4', .025),
+             shape=sample(1:25, 1),
+             color=alpha('#623637', .025),
              position=position_jitter(width=.1, height=.5),
              show.legend=F,
              data=filter(df, g1==3, y2>1.75, y2<4.5)) +
+  geom_point(aes(x=0.025, y=y2), 
+             size=1, 
+             shape=sample(1:25, 1),
+             color=alpha('#454351', .25),
+             position=position_jitter(width=.45, height=.20),
+             show.legend=F,
+             data=filter(df, y2>-3.5, y2 < -1.85)) +
   # scale_x_continuous(limits=c(-1,1)) +
-  scale_color_manual(values=c('slateblue4','cornflowerblue', alpha('#5C010B', .95),
-                              alpha('cornflowerblue',.5), alpha('slateblue4', .05), alpha('slateblue4', .5))) +
+  scale_color_manual(values=c('#3C373E','cornflowerblue', alpha('#2C1D22', .95),
+                              alpha('cornflowerblue',.5), alpha('#3C373E', .05), alpha('#3C373E', .5))) +
   lazerhawk::theme_trueMinimal() +
   theme(axis.text.x=element_blank(),
         axis.title.x=element_blank(),
@@ -116,4 +129,10 @@ ggplot(df) +
         axis.text.y=element_blank(),
         axis.title.y=element_blank(),
         axis.ticks.y=element_blank(),
-        panel.background=element_rect(fill=alpha("royalblue", .9), color=alpha("royalblue", .8)))
+        panel.background=element_rect(fill=alpha("#4D5A7D", .9), color=alpha("royalblue", .8)))
+
+
+# lighter dark band #454351
+# darker rust #2C1D22
+# lighter rust #623637
+# plot background #4D5A7D
