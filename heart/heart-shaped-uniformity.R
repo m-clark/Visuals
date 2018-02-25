@@ -9,7 +9,7 @@ library(ggplot2); library(lazerhawk); library(cowplot)
 # 
 # pc_res = psych::principal(Xuni, 2)$scores
 # 
-# qplot(pc_res[,1], pc_res[,2], color=I('#FF000005'), size=I(10)) +
+# qplot(pc_res[,1], pc_res[,2], color=I('#FF000005'), size=runif(N), show.legend=F) +
 #   lims(x=c(-3,3), y=c(-3,3)) +
 #   labs(x='', y='') +
 #   scale_x_reverse() +
