@@ -1,6 +1,6 @@
 # https://en.wikipedia.org/wiki/Test_functions_for_optimization#Test_functions_for_multi-objective_optimization
 
-# Levi function N.13
+# Cross in tray
 
 source('optimization/functions.R')
 
