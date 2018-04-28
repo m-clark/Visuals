@@ -18,3 +18,4 @@ optimvis(domain_x = c(-5, 5),
 <img src="rastrigin.png" style="display:block; margin: 0 auto;" width=50%>
 <img src="holder.png" style="display:block; margin: 0 auto;" width=50%>
 <img src="himmelblau.png" style="display:block; margin: 0 auto;" width=50%>
+<img src="beale.png" style="display:block; margin: 0 auto;" width=50%>

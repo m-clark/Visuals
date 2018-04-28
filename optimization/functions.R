@@ -32,8 +32,12 @@ himmelblau <- function(x, y) {
   (x^2 + y - 11)^2 + (x + y^2 - 7)^2
 }
   
+beale <- function(x, y) {
+  (1.5 - x*(1 - y))^2 + (2.25 - x*(1 - y^2))^2 + (2.625 - x*(1 - y^3))^2
+}
 
-# This function requires the 
+# This function requires the relevant domains for x and y (both as length 2 limits), an optimization
+# function that will take x and y arguments, and dplyr and plotly packages.
 optimvis = function(domain_x, domain_y, optimfun=bukin, col=viridis::viridis(1000)) {
   require(dplyr)
   d = data.frame(x=seq(domain_x[1], domain_x[2], length.out = 100),
