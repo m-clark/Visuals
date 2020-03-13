@@ -17,15 +17,22 @@ a <- list(
 
 library(plotly)
 
-plot_ly(x=d$x, y=d$y, z=zmat, 
-        type = 'surface', 
-        colors = NineteenEightyR::cobra(), hoverinfo='none') %>% 
-  hide_colorbar() %>% 
-  lazerhawk::theme_blank() %>% 
-  layout(plot_bgcolor='black',
-         paper_bgcolor='black',
-         scene = list(xaxis = a,
-                      yaxis = a,
-                      zaxis = a
-         )
+plot_ly(
+  x = d$x,
+  y = d$y,
+  z = zmat,
+  type = 'surface',
+  colors = NineteenEightyR::cobra(),
+  hoverinfo = 'none'
+) %>%
+  hide_colorbar() %>%
+  lazerhawk::theme_blank() %>%
+  layout(
+    plot_bgcolor = 'black',
+    paper_bgcolor = 'black',
+    scene = list(
+      xaxis = a,
+      yaxis = a,
+      zaxis = a
+    )
   )

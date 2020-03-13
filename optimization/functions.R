@@ -36,33 +36,48 @@ beale <- function(x, y) {
   (1.5 - x*(1 - y))^2 + (2.25 - x*(1 - y^2))^2 + (2.625 - x*(1 - y^3))^2
 }
 
+rosenbrock <- function(a = 1, b = 100, x, y) {
+  (a - x)^2 + b*(y - x^2)^2
+}
+
+
 # This function requires the relevant domains for x and y (both as length 2 limits), an optimization
 # function that will take x and y arguments, and dplyr and plotly packages.
-optimvis = function(domain_x, domain_y, optimfun=bukin, col=viridis::viridis(1000)) {
+optimvis = function(domain_x,
+                    domain_y,
+                    optimfun = bukin,
+                    col = viridis::viridis(1000)) {
   require(dplyr)
-  d = data.frame(x=seq(domain_x[1], domain_x[2], length.out = 100),
-                 y=seq(domain_y[1], domain_y[2], length.out = 100)) %>%
+  d = data.frame(
+    x = seq(domain_x[1], domain_x[2], length.out = 100),
+    y = seq(domain_y[1], domain_y[2], length.out = 100)
+  ) %>%
     arrange(x)
-  zmat = apply(expand.grid(d), 1, function(x) optimfun(x[1], x[2])) %>% 
+  zmat = apply(expand.grid(d), 1, function(x)
+    optimfun(x[1], x[2])) %>%
     matrix(100, 100, byrow = T)
-
-  a <- list(
-    visible=FALSE
-  )
+  
+  a <- list(visible = FALSE)
   
   library(plotly)
   
-  plot_ly(x=d$x, y=d$y, z=zmat, 
-          type = 'surface', 
-          colors = col, 
-          hoverinfo='none') %>% 
-    hide_colorbar() %>% 
-    lazerhawk::theme_blank() %>% 
-    layout(plot_bgcolor='black',
-           paper_bgcolor='black',
-           scene = list(xaxis = a,
-                        yaxis = a,
-                        zaxis = a
-           )
+  plot_ly(
+    x = d$x,
+    y = d$y,
+    z = zmat,
+    type = 'surface',
+    colors = col,
+    hoverinfo = 'none'
+  ) %>%
+    hide_colorbar() %>%
+    lazerhawk::theme_blank() %>%
+    layout(
+      plot_bgcolor = 'black',
+      paper_bgcolor = 'black',
+      scene = list(
+        xaxis = a,
+        yaxis = a,
+        zaxis = a
+      )
     )
 }

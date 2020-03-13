@@ -17,16 +17,22 @@ a <- list(
 
 library(plotly)
 
-plot_ly(x=d$x, y=d$y, z=zmat, 
-        type = 'surface', 
-        colors = viridis::inferno(1e3)) %>% 
-  hide_colorbar() %>% 
-  lazerhawk::theme_blank() %>% 
-  layout(plot_bgcolor='black',
-         paper_bgcolor='black',
-         scene = list(xaxis = a,
-                      yaxis = a,
-                      zaxis = a
-         )
-  )
 
+plot_ly(
+  x = d$x,
+  y = d$y,
+  z = zmat,
+  type = 'surface',
+  colors = c(scico::scico(13), scico::scico(1e3, palette = 'hawaii'))
+) %>%
+  hide_colorbar() %>%
+  visibly::theme_blank() %>%
+  layout(
+    plot_bgcolor = 'black',
+    paper_bgcolor = 'black',
+    scene = list(
+      xaxis = a,
+      yaxis = a,
+      zaxis = a
+    )
+  )
